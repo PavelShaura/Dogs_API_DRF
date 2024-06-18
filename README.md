@@ -46,7 +46,7 @@
 
 Ендпоинты:
 
-<img width="941" alt="todo" src="">
+<img width="941" alt="swagger" src="https://github.com/PavelShaura/Dogs_API_DRF/blob/main/screen/SWAGGER.png">
 
 * GET /api/dogs/: Список всех собак 
 * POST /api/dogs/: Создать новую собаку 
