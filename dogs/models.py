@@ -1,5 +1,8 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class User(AbstractUser):
+    pass
 
 class Breed(models.Model):
     """
@@ -29,8 +32,8 @@ class Breed(models.Model):
     exercise_needs = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
 
     class Meta:
-        verbose_name = "Breed"
-        verbose_name_plural = "Breeds"
+        verbose_name = "Порода"
+        verbose_name_plural = "Породы"
 
     def __str__(self):
         return self.name
@@ -60,8 +63,8 @@ class Dog(models.Model):
     breed = models.ForeignKey(Breed, on_delete=models.CASCADE, related_name="dogs")
 
     class Meta:
-        verbose_name = "Dog"
-        verbose_name_plural = "Dogs"
+        verbose_name = "Собака"
+        verbose_name_plural = "Собаки"
 
     def __str__(self):
         return self.name
