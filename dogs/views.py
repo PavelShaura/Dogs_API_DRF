@@ -1,30 +1,24 @@
 from typing import Any
 
-from rest_framework import generics, status
+from rest_framework.views import APIView
+from rest_framework import status, viewsets
 from rest_framework.response import Response
-from rest_framework.exceptions import NotFound
+
 from dogs.models import Dog, Breed
 from dogs.serializers import DogSerializer, BreedSerializer
 
 
-class DogDetail(generics.RetrieveUpdateDestroyAPIView):
+class DogDetail(APIView):
     """
     Представление для получения, обновления и удаления отдельной собаки.
-
-    Attributes:
-        queryset (QuerySet): Queryset для модели Dog.
-        serializer_class (DogSerializer): Сериализатор для модели Dog.
-        http_method_names (list): Список разрешенных HTTP-методов.
     """
-
-    queryset = Dog.objects.all()
-    serializer_class = DogSerializer
-    http_method_names = ["get", "put", "delete"]
 
     def get(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.retrieve(request, *args, **kwargs)
-        except NotFound:
+            dog = Dog.objects.get(pk=kwargs["pk"])
+            serializer = DogSerializer(dog)
+            return Response(serializer.data)
+        except Dog.DoesNotExist:
             return Response(
                 {"error": "Dog not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -33,8 +27,13 @@ class DogDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.update(request, *args, **kwargs)
-        except NotFound:
+            dog = Dog.objects.get(pk=kwargs["pk"])
+            serializer = DogSerializer(dog, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Dog.DoesNotExist:
             return Response(
                 {"error": "Dog not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -43,11 +42,12 @@ class DogDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            self.destroy(request, *args, **kwargs)
+            dog = Dog.objects.get(pk=kwargs["pk"])
+            dog.delete()
             return Response(
                 {"status": "Dog deleted"}, status=status.HTTP_204_NO_CONTENT
             )
-        except NotFound:
+        except Dog.DoesNotExist:
             return Response(
                 {"error": "Dog not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -55,49 +55,45 @@ class DogDetail(generics.RetrieveUpdateDestroyAPIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DogList(generics.ListCreateAPIView):
+class DogViewSet(viewsets.ModelViewSet):
     """
     Представление для получения списка собак и создания новой собаки.
-
-    Attributes:
-        queryset (QuerySet): Queryset для модели Dog.
-        serializer_class (DogSerializer): Сериализатор для модели Dog.
     """
 
     queryset = Dog.objects.all()
     serializer_class = DogSerializer
+    http_method_names = ["get", "post"]
 
-    def get(self, request: Any, *args: Any, **kwargs: Any) -> Response:
+    def list(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.list(request, *args, **kwargs)
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request: Any, *args: Any, **kwargs: Any) -> Response:
+    def create(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.create(request, *args, **kwargs)
+            serializer = self.get_serializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class BreedDetail(generics.RetrieveUpdateDestroyAPIView):
+class BreedDetail(APIView):
     """
     Представление для получения, обновления и удаления отдельной породы.
-
-    Attributes:
-        queryset (QuerySet): Queryset для модели Breed.
-        serializer_class (BreedSerializer): Сериализатор для модели Breed.
-        http_method_names (list): Список разрешенных HTTP-методов.
     """
-
-    queryset = Breed.objects.all()
-    serializer_class = BreedSerializer
-    http_method_names = ["get", "put", "delete"]
 
     def get(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.retrieve(request, *args, **kwargs)
-        except NotFound:
+            breed = Breed.objects.get(pk=kwargs["pk"])
+            serializer = BreedSerializer(breed)
+            return Response(serializer.data)
+        except Breed.DoesNotExist:
             return Response(
                 {"error": "Breed not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -106,8 +102,13 @@ class BreedDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.update(request, *args, **kwargs)
-        except NotFound:
+            breed = Breed.objects.get(pk=kwargs["pk"])
+            serializer = BreedSerializer(breed, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Breed.DoesNotExist:
             return Response(
                 {"error": "Breed not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -116,11 +117,12 @@ class BreedDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            self.destroy(request, *args, **kwargs)
+            breed = Breed.objects.get(pk=kwargs["pk"])
+            breed.delete()
             return Response(
                 {"status": "Breed deleted"}, status=status.HTTP_204_NO_CONTENT
             )
-        except NotFound:
+        except Breed.DoesNotExist:
             return Response(
                 {"error": "Breed not found"}, status=status.HTTP_404_NOT_FOUND
             )
@@ -128,26 +130,29 @@ class BreedDetail(generics.RetrieveUpdateDestroyAPIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class BreedList(generics.ListCreateAPIView):
+class BreedViewSet(viewsets.ModelViewSet):
     """
     Представление для получения списка пород и создания новой породы.
-
-    Attributes:
-        queryset (QuerySet): Queryset для модели Breed.
-        serializer_class (BreedSerializer): Сериализатор для модели Breed.
     """
 
     queryset = Breed.objects.all()
     serializer_class = BreedSerializer
+    http_method_names = ["get", "post"]
 
-    def get(self, request: Any, *args: Any, **kwargs: Any) -> Response:
+    def list(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.list(request, *args, **kwargs)
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request: Any, *args: Any, **kwargs: Any) -> Response:
+    def create(self, request: Any, *args: Any, **kwargs: Any) -> Response:
         try:
-            return self.create(request, *args, **kwargs)
+            serializer = self.get_serializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
