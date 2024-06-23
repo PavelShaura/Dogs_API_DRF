@@ -10,6 +10,5 @@ router.register(r"breeds", BreedViewSet)
 urlpatterns = [
     path("dogs/<int:pk>/", DogDetail.as_view(), name="dog-detail"),
     path("breeds/<int:pk>/", BreedDetail.as_view(), name="breed-detail"),
-
     path("", include(router.urls)),
 ]

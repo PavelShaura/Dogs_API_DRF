@@ -1,12 +1,12 @@
 from typing import Any
 
+from django.utils.translation import gettext_lazy as _
 from rest_framework.views import APIView
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
 from dogs.models import Dog, Breed
 from dogs.serializers import DogSerializer, BreedSerializer
-
 
 
 class DogDetail(APIView):
@@ -21,7 +21,7 @@ class DogDetail(APIView):
             return Response(serializer.data)
         except Dog.DoesNotExist:
             return Response(
-                {"error": "Dog not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": _("Dog not found")}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -36,7 +36,7 @@ class DogDetail(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Dog.DoesNotExist:
             return Response(
-                {"error": "Dog not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": _("Dog not found")}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -46,11 +46,11 @@ class DogDetail(APIView):
             dog = Dog.objects.get(pk=kwargs["pk"])
             dog.delete()
             return Response(
-                {"status": "Dog deleted"}, status=status.HTTP_204_NO_CONTENT
+                {"status": _("Dog deleted")}, status=status.HTTP_204_NO_CONTENT
             )
         except Dog.DoesNotExist:
             return Response(
-                {"error": "Dog not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": _("Dog not found")}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -96,7 +96,7 @@ class BreedDetail(APIView):
             return Response(serializer.data)
         except Breed.DoesNotExist:
             return Response(
-                {"error": "Breed not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": _("Breed not found")}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -111,7 +111,7 @@ class BreedDetail(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Breed.DoesNotExist:
             return Response(
-                {"error": "Breed not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": _("Breed not found")}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -121,11 +121,11 @@ class BreedDetail(APIView):
             breed = Breed.objects.get(pk=kwargs["pk"])
             breed.delete()
             return Response(
-                {"status": "Breed deleted"}, status=status.HTTP_204_NO_CONTENT
+                {"status": _("Breed deleted")}, status=status.HTTP_204_NO_CONTENT
             )
         except Breed.DoesNotExist:
             return Response(
-                {"error": "Breed not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": _("Breed not found")}, status=status.HTTP_404_NOT_FOUND
             )
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

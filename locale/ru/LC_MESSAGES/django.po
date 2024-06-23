@@ -114,3 +114,22 @@ msgstr "собака"
 #: dogs/models.py:66
 msgid "dogs"
 msgstr "собаки"
+
+msgid "Dogs"
+msgstr "Собаки"
+
+#: dogs/views.py.py:67
+msgid "Dog not found"
+msgstr "Собака не найдена"
+
+#: dogs/views.py.py:68
+msgid "Dog deleted"
+msgstr "Собака удалена"
+
+#: dogs/views.py.py:69
+msgid "Breed not found"
+msgstr "Порода не найдена"
+
+#: dogs/views.py.py:69
+msgid "Breed deleted"
+msgstr "Порода удалена"

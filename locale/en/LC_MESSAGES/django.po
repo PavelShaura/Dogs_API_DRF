@@ -112,3 +112,6 @@ msgstr "dog"
 #: dogs/models.py:66
 msgid "dogs"
 msgstr "dogs"
+
+msgid "Dogs"
+msgstr "Dogs"

@@ -132,12 +132,12 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('ru', _('Russian')),
-    ('en', _('English')),
+    ("ru", _("Russian")),
+    ("en", _("English")),
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    BASE_DIR / "locale",
 ]
 
 
