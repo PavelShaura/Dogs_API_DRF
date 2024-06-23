@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-23 15:58+0300\n"
+"PO-Revision-Date: 2024-06-23 16:00+0300\n"
+"Last-Translator: YOUR NAME <your.email@example.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: dog_app/settings.py:135
+msgid "Russian"
+msgstr "Russian"
+
+#: dog_app/settings.py:136
+msgid "English"
+msgstr "English"
+
+#: dogs/admin.py:28
+msgid "Personal info"
+msgstr "Personal info"
+
+#: dogs/admin.py:29
+msgid "Permissions"
+msgstr "Permissions"
+
+#: dogs/admin.py:32
+msgid "Important dates"
+msgstr "Important dates"
+
+#: dogs/models.py:24
+msgid "Tiny"
+msgstr "Tiny"
+
+#: dogs/models.py:24
+msgid "Small"
+msgstr "Small"
+
+#: dogs/models.py:24
+msgid "Medium"
+msgstr "Medium"
+
+#: dogs/models.py:24
+msgid "Large"
+msgstr "Large"
+
+#: dogs/models.py:27 dogs/models.py:56
+msgid "name"
+msgstr "name"
+
+#: dogs/models.py:28
+msgid "size"
+msgstr "size"
+
+#: dogs/models.py:29
+msgid "friendliness"
+msgstr "friendliness"
+
+#: dogs/models.py:30
+msgid "trainability"
+msgstr "trainability"
+
+#: dogs/models.py:31
+msgid "shedding amount"
+msgstr "shedding amount"
+
+#: dogs/models.py:32
+msgid "exercise needs"
+msgstr "exercise needs"
+
+#: dogs/models.py:35 dogs/models.py:58
+msgid "breed"
+msgstr "breed"
+
+#: dogs/models.py:36
+msgid "breeds"
+msgstr "breeds"
+
+#: dogs/models.py:57
+msgid "age"
+msgstr "age"
+
+#: dogs/models.py:59
+msgid "gender"
+msgstr "gender"
+
+#: dogs/models.py:60
+msgid "color"
+msgstr "color"
+
+#: dogs/models.py:61
+msgid "favorite food"
+msgstr "favorite food"
+
+#: dogs/models.py:62
+msgid "favorite toy"
+msgstr "favorite toy"
+
+#: dogs/models.py:65
+msgid "dog"
+msgstr "dog"
+
+#: dogs/models.py:66
+msgid "dogs"
+msgstr "dogs"
