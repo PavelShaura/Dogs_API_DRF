@@ -8,6 +8,7 @@ from dogs.models import Dog, Breed
 from dogs.serializers import DogSerializer, BreedSerializer
 
 
+
 class DogDetail(APIView):
     """
     Представление для получения, обновления и удаления отдельной собаки.

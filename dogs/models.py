@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
@@ -20,22 +21,19 @@ class Breed(models.Model):
     """
 
     DOG_SIZE = [
-        ("Tiny", "Tiny"),
-        ("Small", "Small"),
-        ("Medium", "Medium"),
-        ("Large", "Large"),
+        ('Tiny', _('Tiny')), ('Small', _('Small')), ('Medium', _('Medium')), ('Large', _('Large'))
     ]
 
-    name = models.CharField(max_length=100)
-    size = models.CharField(max_length=10, choices=DOG_SIZE)
-    friendliness = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    trainability = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    shedding_amount = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    exercise_needs = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    name = models.CharField(_('name'), max_length=100)
+    size = models.CharField(_('size'), max_length=10, choices=DOG_SIZE)
+    friendliness = models.IntegerField(_('friendliness'), choices=[(i, i) for i in range(1, 6)])
+    trainability = models.IntegerField(_('trainability'), choices=[(i, i) for i in range(1, 6)])
+    shedding_amount = models.IntegerField(_('shedding amount'), choices=[(i, i) for i in range(1, 6)])
+    exercise_needs = models.IntegerField(_('exercise needs'), choices=[(i, i) for i in range(1, 6)])
 
     class Meta:
-        verbose_name = "Порода"
-        verbose_name_plural = "Породы"
+        verbose_name = _('breed')
+        verbose_name_plural = _('breeds')
 
     def __str__(self):
         return self.name
@@ -55,18 +53,17 @@ class Dog(models.Model):
         breed (Breed): Порода собаки.
     """
 
-    name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    gender = models.CharField(max_length=10)
-    color = models.CharField(max_length=50)
-    favorite_food = models.CharField(max_length=100)
-    favorite_toy = models.CharField(max_length=100)
-
-    breed = models.ForeignKey(Breed, on_delete=models.CASCADE, related_name="dogs")
+    name = models.CharField(_('name'), max_length=100)
+    age = models.IntegerField(_('age'))
+    breed = models.ForeignKey(Breed, on_delete=models.CASCADE, related_name='dogs', verbose_name=_('breed'))
+    gender = models.CharField(_('gender'), max_length=10)
+    color = models.CharField(_('color'), max_length=50)
+    favorite_food = models.CharField(_('favorite food'), max_length=100)
+    favorite_toy = models.CharField(_('favorite toy'), max_length=100)
 
     class Meta:
-        verbose_name = "Собака"
-        verbose_name_plural = "Собаки"
+        verbose_name = _('dog')
+        verbose_name_plural = _('dogs')
 
     def __str__(self):
         return self.name
